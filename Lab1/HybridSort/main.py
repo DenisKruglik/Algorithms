@@ -33,7 +33,7 @@ def middle(vfrom, vto):
 
 
 if __name__ == '__main__':
-    qt = count_avg_time(sortings.quicksort_iterative)
+    qt = count_avg_time(sortings.quicksort)
     nfrom = 7
     nto = 200
     n = middle(nfrom, nto)
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     print('n =', n)
 
     while True:
-        ht = count_avg_time(sortings.hybrid_sort_iterative, small=n)
+        ht = count_avg_time(sortings.hybrid_sort, small=n)
         if ht <= qt:
             nfrom = n
         elif qt < ht:

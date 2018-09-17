@@ -1,4 +1,4 @@
-import math, copy
+import math, copy, random
 
 
 def insertion_sort(arr, return_new=True):
@@ -42,7 +42,6 @@ def merge(left, right):
 
 
 def quicksort(arr, p=0, r=-1, return_new=True):
-    print(arr)
     if p == 0 and r < 0 and return_new:
         a = copy.copy(arr)
     else:
@@ -76,7 +75,7 @@ def quicksort_iterative(arr, p=0, r=-1, return_new=True):
 
 
 def findq(a, p, r):
-    x = a[r]
+    x = a[random.randint(p, r)]
     q = p
     for i in range(p, r):
         if a[i] <= x:
