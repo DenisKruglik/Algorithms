@@ -20,9 +20,7 @@ def avg(vals):
 def count_avg_time(func, **additional):
     vals = []
     for arr in arrs:
-        for i in range(50):
-            vals.append(measure_time(func, arr, **additional, return_new=True))
-    print('counted')
+        vals.append(measure_time(func, arr, **additional, return_new=True))
     return avg(vals)
 
 
@@ -34,7 +32,8 @@ def middle(vfrom, vto):
 
 if __name__ == '__main__':
     qt = count_avg_time(sortings.quicksort)
-    nfrom = 7
+    print('Quicksort avg time:', qt)
+    nfrom = 1
     nto = 200
     n = middle(nfrom, nto)
     prev = n
@@ -42,6 +41,7 @@ if __name__ == '__main__':
 
     while True:
         ht = count_avg_time(sortings.hybrid_sort, small=n)
+        print('Hybrid sort avg time for %s:' % n, ht)
         if ht <= qt:
             nfrom = n
         elif qt < ht:
