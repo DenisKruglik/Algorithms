@@ -48,41 +48,29 @@ def quicksort(arr, p=0, r=-1, return_new=True):
         a = arr
     r = len(a) - 1 if r < 0 else r
     if p < r:
-        q = findq(a, p, r)
+        q = random_pivot_partition(a, p, r)
         quicksort(a, p, q-1, False)
         quicksort(a, q+1, r, False)
     return a
 
 
-def quicksort_iterative(arr, p=0, r=-1, return_new=True):
-    if p == 0 and r < 0 and return_new:
-        a = copy.copy(arr)
-    else:
-        a = arr
-    r = len(a) - 1 if r < 0 else r
-    stack = [p, r]
-    while len(stack) > 0:
-        r = stack.pop()
-        p = stack.pop()
-        q = findq(a, p, r)
-        if q-1 > p:
-            stack.append(p)
-            stack.append(q-1)
-        if q+1 < r:
-            stack.append(q+1)
-            stack.append(r)
-    return a
+def random_pivot_partition(array, start, end):
+    pivot = random.randint(start, end)
+    array[end], array[pivot] = array[pivot], array[end]
+    return findq(array, start, end)
 
 
-def findq(a, p, r):
-    x = a[random.randint(p, r)]
-    q = p
-    for i in range(p, r):
-        if a[i] <= x:
-            a[i], a[q] = a[q], a[i]
-            q += 1
-    a[q], a[r] = a[r], a[q]
-    return q
+def findq(array, start, end):
+    pivot = end
+    partition_index = start
+
+    for i in range(start, end):
+        if array[i] < array[pivot]:
+            array[partition_index], array[i] = array[i], array[partition_index]
+            partition_index += 1
+
+    array[pivot], array[partition_index] = array[partition_index], array[pivot]
+    return partition_index
 
 
 def hybrid_sort(arr, small, p=0, r=-1, return_new=True):
@@ -96,36 +84,13 @@ def hybrid_sort(arr, small, p=0, r=-1, return_new=True):
         return insertion_sort(a, False)
     else:
         if p < r:
-            q = findq(a, p, r)
+            q = random_pivot_partition(a, p, r)
             hybrid_sort(a, small, p, q - 1, False)
             hybrid_sort(a, small, q + 1, r, False)
         return a
 
 
-def hybrid_sort_iterative(arr, small, p=0, r=-1, return_new=True):
-    if p == 0 and r < 0 and return_new:
-        a = copy.copy(arr)
-    else:
-        a = arr
-    r = len(a) - 1 if r < 0 else r
-    if len(a) <= small:
-        return insertion_sort(a, False)
-    else:
-        stack = [p, r]
-        while len(stack) > 0:
-            r = stack.pop()
-            p = stack.pop()
-            q = findq(a, p, r)
-            if q - 1 > p:
-                if q - p <= small:
-                    a[p:q] = insertion_sort(a[p:q])
-                else:
-                    stack.append(p)
-                    stack.append(q - 1)
-            if q + 1 < r:
-                if r - q <= small:
-                    a[q+1:r+1] = insertion_sort(a[q+1:r+1])
-                else:
-                    stack.append(q + 1)
-                    stack.append(r)
-        return a
+if __name__ == '__main__':
+    arr = [6, 1, 9, 3, 2, 0, 4, 5, 8, 7]
+    b = quicksort(arr)
+    print(b)

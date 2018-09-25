@@ -14,7 +14,7 @@ def merge_sort(arr, key):
 def merge(left, right, key):
     result = []
     while len(left) > 0 and len(right) > 0:
-        if left[0][key] <= right[0][key]:
+        if left[0][0][key] <= right[0][0][key]:
             result.append(left.pop(0))
         else:
             result.append(right.pop(0))
@@ -25,29 +25,50 @@ def merge(left, right, key):
     return result
 
 
-# def parallel_merge_sort(l1, k1, l2, k2):
-#     if len(l1) <= 1:
-#         return l1
-#     else:
-#         middle = math.floor(len(l1) / 2)
-#         left = parallel_merge_sort(l1[:middle], k1, l2, k2)
-#         right = parallel_merge_sort(l1[middle:], k1, l2, k2)
-#         return parallel_merge(left, right, l2, k2)
-#
-#
-# def parallel_merge(left, right, l2, k2):
-#     left2 = []
-#     right2 = []
-#     for i in left:
-#         for j in l2:
-#             if j[k2] == i[k2]:
-#                 left2.append(j)
-#                 break
-#
-#     for i in right:
-#         for j in l2:
-#             if j[k2] == i[k2]:
-#                 right2.append(j)
-#                 break
-#
-#     return (left2, r)
+def parallel_merge_sort(l1, k1, l2, k2):
+    l2.sort(key=lambda x: x[k2])
+    grouped_second = group_by_values(l2, k2)
+    list_to_sort = join(l1, grouped_second, k2, 'val')
+
+    sorted_list = merge_sort(list_to_sort, k1)
+    first_sorted = [i[0] for i in sorted_list]
+    second_sorted = []
+
+    for i in sorted_list:
+        if i[1] is not None:
+            second_sorted.extend(i[1]['data'])
+
+    return first_sorted, second_sorted
+
+
+def group_by_values(lisst, key):
+    result = []
+    prev = None
+    buffer = []
+
+    for i in lisst:
+        if prev is None:
+            buffer.append(i)
+            prev = i
+        elif prev[key] == i[key]:
+            buffer.append(i)
+        else:
+            result.append({'val': prev[key], 'data': buffer})
+            buffer = []
+            buffer.append(i)
+            prev = i
+
+    if len(buffer): result.append({'val': buffer[0][key], 'data': buffer})
+
+    return result
+
+
+def join(l1, l2, k1, k2):
+    result = []
+
+    for i in l1:
+        corresponding_group_list = list(filter(lambda x: x[k2] == i[k1], l2))
+        corresponding_group = corresponding_group_list[0] if len(corresponding_group_list) else None
+        result.append((i, corresponding_group))
+
+    return result

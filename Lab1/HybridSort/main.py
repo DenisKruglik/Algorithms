@@ -20,7 +20,8 @@ def avg(vals):
 def count_avg_time(func, **additional):
     vals = []
     for arr in arrs:
-        vals.append(measure_time(func, arr, **additional, return_new=True))
+        for i in range(10):
+            vals.append(measure_time(func, arr, **additional, return_new=True))
     return avg(vals)
 
 
