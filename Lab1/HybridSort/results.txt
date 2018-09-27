@@ -1,18 +1,19 @@
-Результат: 5
+Результат: 54
 
 Вывод программы:
-Quicksort avg time: 0.5938187837600708
+Quicksort avg time: 0.33961866235733035
 n = 100
-Hybrid sort avg time for 100: 0.6828947257995606
+Hybrid sort avg time for 100: 0.42925381469726565
 n = 50
-Hybrid sort avg time for 50: 0.6118271160125732
-n = 25
-Hybrid sort avg time for 25: 0.5948615169525147
-n = 13
-Hybrid sort avg time for 13: 0.6691183423995972
-n = 7
-Hybrid sort avg time for 7: 0.7568923664093018
-n = 4
-Hybrid sort avg time for 4: 0.5630770254135132
-n = 5
-Answer: 5
+Hybrid sort avg time for 50: 0.3297860836982727
+n = 75
+Hybrid sort avg time for 75: 0.376412561416626
+n = 62
+Hybrid sort avg time for 62: 0.35207910442352297
+n = 56
+Hybrid sort avg time for 56: 0.3407268052101135
+n = 53
+Hybrid sort avg time for 53: 0.3349244236946106
+n = 54
+Hybrid sort avg time for 54: 0.3373318967819214
+Answer: 54

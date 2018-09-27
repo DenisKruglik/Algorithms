@@ -43,6 +43,8 @@ if __name__ == '__main__':
     while True:
         ht = count_avg_time(sortings.hybrid_sort, small=n)
         print('Hybrid sort avg time for %s:' % n, ht)
+        if abs(n - prev) <= 1 and ht < qt:
+            break
         if ht <= qt:
             nfrom = n
         elif qt < ht:
@@ -50,7 +52,5 @@ if __name__ == '__main__':
         prev = n
         n = middle(nfrom, nto)
         print('n =', n)
-        if abs(n - prev) <= 1 and ht < qt:
-            break
 
     print('Answer:', n)
