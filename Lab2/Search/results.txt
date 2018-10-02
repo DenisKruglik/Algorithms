@@ -1,0 +1,21 @@
+Ответ: 6
+Вывод программы:
+k = 2
+Binary search time: 0.333754074
+Interpolation search time: 0.40513759799999993
+k = 3
+Binary search time: 0.3261371889999999
+Interpolation search time: 0.64050816
+k = 4
+Binary search time: 0.4785517880000001
+Interpolation search time: 0.7215765679999997
+k = 5
+Binary search time: 0.6531654870000003
+Interpolation search time: 0.7950414249999995
+k = 6
+Binary search time: 0.6635690390000004
+Interpolation search time: 1.1437626029999999
+k = 7
+Binary search time: 0.6609112609999999
+Interpolation search time: 0.34274562599999925
+Answer: 6
