@@ -27,7 +27,7 @@ class ChainCollisionHashTable(AbstractHashTable):
             self.data[ind].append([key, value])
 
     def hash(self, key):
-        return math.floor()
+        return math.floor((key % ChainCollisionHashTable.CONST * self.koef) % 1 * len(self.data))
 
     def longest_chain(self):
         res = 0
