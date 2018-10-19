@@ -10,21 +10,20 @@ class ChainCollisionHashTable(AbstractHashTable):
         self.data = [[] for i in range(size)]
         self.koef = koef
 
-    def get(self, key):
-        ind = self.hash(key)
-        for (k, v) in self.data[ind]:
-            if k == key:
-                return v
-        return None
+    def __contains__(self, item):
+        ind = self.hash(item)
+        for v in self.data[ind]:
+            if v == item:
+                return True
+        return False
 
-    def set(self, key, value):
-        ind = self.hash(key)
-        for indd, (k, v) in enumerate(self.data[ind]):
-            if k == key:
-                self.data[ind][indd][1] = value
-                break
+    def set(self, value):
+        ind = self.hash(value)
+        for indd, v in enumerate(self.data[ind]):
+            if v == value:
+                return
         else:
-            self.data[ind].append([key, value])
+            self.data[ind].append(value)
 
     def hash(self, key):
         return math.floor((key % ChainCollisionHashTable.CONST * self.koef) % 1 * len(self.data))

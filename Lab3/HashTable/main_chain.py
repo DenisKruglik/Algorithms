@@ -13,7 +13,7 @@ def count_longest_chain(data, koef=ChainCollisionHashTable.A):
         i = 0
 
         for val in dataset:
-            htable.set(i, val)
+            htable.set(val)
             i += 1
 
         long_chain = htable.longest_chain()

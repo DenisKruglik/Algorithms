@@ -5,11 +5,7 @@ from abc import ABCMeta, abstractmethod
 class AbstractHashTable(metaclass=ABCMeta):
 
     @abstractmethod
-    def get(self, key):
-        pass
-
-    @abstractmethod
-    def set(self, key, value):
+    def set(self, value):
         pass
 
     @abstractmethod

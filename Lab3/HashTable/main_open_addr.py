@@ -8,19 +8,8 @@ worst = 0
 for arr in data:
     htable = OpenAddressingHashTable(len(arr))
 
-    for k, v in enumerate(arr):
-        tries = htable.set(k, v)
-        worst = tries if tries > worst else worst
-
-print("Max tries during insertion with serial keys:", worst)
-
-worst = 0
-
-for arr in data:
-    htable = OpenAddressingHashTable(len(arr))
-
     for v in arr:
-        tries = htable.set(random.randint(0, 1024), v)
+        tries = htable.set(v)
         worst = tries if tries > worst else worst
 
-print("Max tries during insertion with random keys:", worst)
+print("Max tries during insertion:", worst)

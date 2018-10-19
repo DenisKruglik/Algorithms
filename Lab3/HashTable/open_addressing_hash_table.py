@@ -14,35 +14,33 @@ class OpenAddressingHashTable(AbstractHashTable):
             data_len += 1
         self.data = [None] * (2**data_len)
 
-    def get(self, key):
+    def __contains__(self, key):
         hashh = self.hash(key)
         ind = hashh
         trry = 0
-        while self.data[ind] is not None and self.data[ind][0] != key:
+        while self.data[ind] is not None and self.data[ind] != key:
             trry += 1
             ind = (hashh + (trry ** 2)) % len(self.data)
-        return None if self.data[ind] is None else self.data[ind][1]
+        return False if self.data[ind] is None else True
 
-    def set(self, key, value):
+    def set(self, value):
         if self._size == self._max_size:
-            for index, val in enumerate(self.data):
-                if val is not None and val[0] == key:
-                    self.data[index][1] = value
-                    break
+            for val in self.data:
+                if val is not None and val == value:
+                    return 0
             else:
                 raise Exception('Cannot insert new element into a full hash table')
 
-        hashh = self.hash(key)
+        hashh = self.hash(value)
         ind = hashh
         trry = 0
         while self.data[ind] is not None:
-            if self.data[ind][0] != key:
+            if self.data[ind] == value:
+                return trry
+            else:
                 trry += 1
                 ind = (hashh + (trry ** 2)) % len(self.data)
-            else:
-                self.data[ind][1] = value
-                return trry
-        self.data[ind] = [key, value]
+        self.data[ind] = value
         self._size += 1
         return trry
 
