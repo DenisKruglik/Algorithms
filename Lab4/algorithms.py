@@ -2,6 +2,10 @@ import copy
 
 
 def euler_cycle_search(graph):
+    bfs = breadth_first_search(graph)
+    if bfs is None or set(bfs) != set(graph.adjacency_lists):
+        return None
+
     for v in graph.adjacency_lists:
         if len(graph.adjacency_lists[v]) % 2 != 0:
             return None

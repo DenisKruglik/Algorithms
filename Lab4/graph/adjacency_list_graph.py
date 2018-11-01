@@ -54,4 +54,4 @@ class AdjacencyListGraph(AbstractGraph):
         return edge[0] in self.adjacency_lists[edge[1]]
 
     def clear(self):
-        self.adjacency_lists = []
+        self.adjacency_lists = {}
