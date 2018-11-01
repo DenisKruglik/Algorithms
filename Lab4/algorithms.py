@@ -21,3 +21,36 @@ def euler_cycle_search(graph):
             q.insert(0, s.pop())
 
     return q
+
+
+def breadth_first_search(graph, start=None, need_bipartite=False):
+    if len(graph.adjacency_lists) == 0:
+        return None
+
+    if start is not None and start not in graph.adjacency_lists:
+        raise Exception("Starting vertex is not present in a graph")
+
+    g = copy.deepcopy(graph)
+    marked = {}
+
+    current_generation = previous_generation = 0
+    marked[list(g.adjacency_lists.keys())[0] if start is None else start] = current_generation
+    is_bipartite = True
+
+    while True:
+        current_generation += 1
+        is_end = True
+
+        for i in [k for k in marked if marked[k] == previous_generation]:
+            for j in g.adjacency_lists[i]:
+                if j not in marked:
+                    marked[j] = current_generation
+                    is_end = False
+                elif need_bipartite and is_bipartite and marked[j] % 2 == marked[i] % 2:
+                    is_bipartite = False
+
+        if is_end: break
+
+        previous_generation = current_generation
+
+    return marked if not need_bipartite else (marked, is_bipartite)
