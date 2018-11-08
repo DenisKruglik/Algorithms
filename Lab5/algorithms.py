@@ -27,3 +27,43 @@ def prim(graph):
         control_component.add(min_edge[1])
 
     return result
+
+
+def kruskal(graph):
+    if not graph.is_connected():
+        raise Exception('Graph must be connected')
+
+    if graph.vertex_count < 3:
+        return graph
+
+    edges = []
+
+    for i in range(graph.vertex_count - 1):
+        for j in range(i+1, graph.vertex_count):
+            if graph.matrix[i][j] is not None:
+                edges.append(((i, j), graph.matrix[i][j]))
+
+    edges.sort(key=lambda edge: edge[1])
+
+    result = IncidenceMatrixGraph()
+
+    for i in range(graph.vertex_count):
+        result.insert_vertex()
+
+    component_map = {i: i for i in range(graph.vertex_count)}
+
+    for e in edges:
+        v1, v2 = e[0]
+        if component_map[v1] != component_map[v2]:
+            result.insert_edge(*e)
+            new = min(component_map[v1], component_map[v2])
+            old = component_map[v1] if new == component_map[v2] else component_map[v2]
+
+            for k in component_map:
+                if component_map[k] == old:
+                    component_map[k] = new
+
+            if len(set(component_map.values())) == 1:
+                break
+
+    return result
