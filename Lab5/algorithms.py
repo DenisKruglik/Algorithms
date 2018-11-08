@@ -67,3 +67,30 @@ def kruskal(graph):
                 break
 
     return result
+
+
+def gale_shapley(men, women):
+    blacklists = [[]] * len(men)
+
+    marriage_map = [None for i in range(len(men))]
+
+    while len({i for i, v in enumerate(marriage_map) if v is None}) > 0:
+        man = next(filter(lambda i: i[1] is None, enumerate(marriage_map)))[0]
+
+        for w in men[man]:
+            if w not in blacklists[man]:
+                current_man = marriage_map.index(w) if w in marriage_map else None
+
+                if current_man is None:
+                    marriage_map[man] = w
+                    break
+
+                if women[w].index(man) < women[w].index(current_man):
+                    marriage_map[man] = w
+                    marriage_map[current_man] = None
+                    blacklists[current_man].append(w)
+                    break
+                else:
+                    blacklists[man].append(w)
+
+    return marriage_map
