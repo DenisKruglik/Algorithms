@@ -1,7 +1,18 @@
 from graph.incidence_matrix_graph import IncidenceMatrixGraph
 
 
+'''Module contains algorithms for lab.'''
+
+
 def prim(graph):
+    '''Prim's algorithm
+
+    Args:
+        graph (IncidenceMatrixGraph): graph to apply algorithm to
+
+    Returns:
+        IncidenceMatrixGraph: minimum weight spanning tree'''
+
     if not graph.is_connected():
         raise Exception('Graph must be connected')
 
@@ -30,6 +41,14 @@ def prim(graph):
 
 
 def kruskal(graph):
+    '''Kruskal's algorithm
+
+    Args:
+        graph (IncidenceMatrixGraph): graph to apply algorithm to
+
+    Returns:
+        IncidenceMatrixGraph: minimum weight spanning tree'''
+
     if not graph.is_connected():
         raise Exception('Graph must be connected')
 
@@ -70,6 +89,30 @@ def kruskal(graph):
 
 
 def gale_shapley(men, women):
+    '''Gale-Shapley algorithm
+
+    Args:
+        men (list): matrix of men's women preferences represented as list of lists, each row for each man contains indices of women ordered by preference
+        women (list): same matrix for women
+
+    Returns:
+        list: result distribution represented by list where index is an index of a man and value is an index of a woman assigned
+
+    Example:
+        men = [
+            [1, 2, 3],
+            [1, 3, 2],
+            [2, 3, 1]
+        ]
+
+        women = [
+            [2, 3, 1],
+            [1, 3, 2],
+            [2, 1, 3]
+        ]
+
+        gale_shapley(men, women)'''
+
     blacklists = [[]] * len(men)
 
     marriage_map = [None for i in range(len(men))]

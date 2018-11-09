@@ -7,6 +7,10 @@ class AbstractGraph(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def insert_vertices(self, amount):
+        pass
+
+    @abstractmethod
     def insert_edge(self, edge, weight):
         pass
 
