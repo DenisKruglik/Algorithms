@@ -1,4 +1,5 @@
 import copy
+from math import inf
 
 
 def floyd(graph):
@@ -29,3 +30,43 @@ def floyd(graph):
                 a[row][col] = min(a[row][col], a[i][col] + a[row][i]) if a[row][col] is not None else a[i][col] + a[row][i]
 
     return a
+
+
+def dijkstra(graph, begin):
+    '''Returns a tuple with the distance dictionary and path dictionary.
+    The first one determines min distance to this vertex from the beginning and the second determines from which
+    vertex one should come to this one
+
+    Args:
+        graph (IncidenceMatrixGraph|OrientedIncidenceMatrixGraph): graph under consideration
+        begin (int): index of the beginning vertex
+
+    Returns:
+        tuple: tuple of dictionaries of distance and path'''
+    dist = {}
+    used = {}
+    path = {}
+
+    for i in range(graph.vertex_count):
+        dist[i] = inf
+        used[i] = False
+
+    dist[begin] = 0
+
+    for i in range(graph.vertex_count):
+        v = None
+
+        for j in range(graph.vertex_count):
+            if not used[j] and (v is None or dist[j] < dist[v]):
+                v = j
+
+        if dist[v] == inf:
+            break
+
+        used[v] = True
+
+        for u, w in enumerate(graph.matrix[v]):
+            if w is not None and dist[v] + w < dist[u]:
+                dist[u] = dist[v] + w
+                path[u] = v
+    return dist, path
