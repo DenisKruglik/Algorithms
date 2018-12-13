@@ -53,12 +53,9 @@ def palindrome(string):
     greatest = 1
 
     for i in range(1, l):
-        for j in range(i):
+        for j in range(l - i):
+            end = i + j
             start = j
-            end = j - i
-
-    for end in range(1, l):
-        for start in range(end):
             if len(string[start:end + 1]) == 2:
                 if string[start] == string[end]:
                     lens[end][start] = 2
