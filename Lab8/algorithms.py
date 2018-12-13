@@ -1,3 +1,6 @@
+import math
+
+
 def horse(x, y, first_call=True):
     if first_call:
         horse.solutions = [[None] * (y+1) for x in range(x+1)]
@@ -70,3 +73,31 @@ def palindrome(string):
             greatest = lens[end][start] if lens[end][start] > greatest else greatest
 
     return greatest
+
+
+def knapsack(weights, costs, amounts, capacity):
+    n = len(weights)
+    d = [[0] * (capacity+1) for i in range(n)]
+
+    for i in range(n):
+        for c in range(1, capacity + 1):
+            d[i][c] = d[i - 1][c]
+            for l in range(min(amounts[i], math.floor(c / weights[i])), 0, -1):
+                d[i][c] = max(d[i][c], d[i - 1][c - l * weights[i]] + costs[i] * l)
+
+    return _restore_items(n-1, capacity, d, weights, costs)
+
+
+def _restore_items(k, s, d, weights, costs, result=None):
+    if result is None:
+        result = [0] * len(d)
+    if d[k][int(s)] == 0:
+        return result
+    if d[k - 1][int(s)] == d[k][int(s)]:
+        _restore_items(k - 1, s, d, weights, costs, result)
+    else:
+        prev = d[k - 1][int(s)] if k > 0 else 0
+        amount = (d[k][int(s)] - prev) / costs[k]
+        _restore_items(k - 1, s - weights[k] * amount, d, weights, costs, result)
+        result[k] = int(amount)
+    return result
