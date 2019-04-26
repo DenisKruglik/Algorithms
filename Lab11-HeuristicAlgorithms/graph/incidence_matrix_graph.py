@@ -32,7 +32,7 @@ class IncidenceMatrixGraph(AbstractGraph):
         '''Add an edge between specified vertices
 
         Args:
-            edge (list): list of 2 vertex indices to connect
+            edge (list|tuple): list of 2 vertex indices to connect
             weight (int): Weight of the edge added
 
         Raises:
@@ -73,8 +73,8 @@ class IncidenceMatrixGraph(AbstractGraph):
         '''Checks if two edges are adjacent
 
         Args:
-            e1 (list): list of two vertices on the ends of the first edge
-            e2 (list): list of two vertices on the ends of the second edge
+            e1 (list|tuple): list of two vertices on the ends of the first edge
+            e2 (list|tuple): list of two vertices on the ends of the second edge
 
         Returns:
             bool: True if edges are adjacent, False otherwise
@@ -116,7 +116,7 @@ class IncidenceMatrixGraph(AbstractGraph):
         '''Removes edge from the graph
 
         Args:
-            edge (list): list of two vertices on the ends of the edge
+            edge (list|tuple): list of two vertices on the ends of the edge
 
         Raises:
             Exception: edge contains indices of vertices not present in the graph
@@ -163,7 +163,7 @@ class IncidenceMatrixGraph(AbstractGraph):
         '''Checks if edge is contained in the graph
 
         Args:
-            edge (list): list of two vertices on the ends of the edge
+            edge (list|tuple): list of two vertices on the ends of the edge
 
         Returns:
             bool: True if edge is present in the graph, False otherwise
